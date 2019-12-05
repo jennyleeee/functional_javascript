@@ -1,0 +1,60 @@
+<script> const log = console.log;</script>
+
+## 기존과 달라진 ES6에서의 리스트 순회
+-for i++
+-for of
+
+<script>
+	const list = [1,2,3];
+	for(var i = 0 ; i < list.length; i++){
+		log(list[i]);
+	}
+	const str = 'abc';
+	for(var i = 0 ; i<str.length ; i++){
+		log(str[i]);
+	}
+
+	//바뀐 순회 방식. 간결하고 선언적이다.
+	for(const a of list){
+		log(a);
+	}
+	for(const a of str){
+		log(a);
+	}
+</script>
+
+
+
+
+	### Array를 통해 알아보기
+<script>
+	log('Arr -----------');
+	const arr = [1,2,3];
+	arr[Symbol.iterator] = null;
+	let iter1 = arr[Symbol.iterator]()
+	//iter1.next(); -- 2,3 next 한 번 했을 경우
+	//iter1.next(); -- 3 next 두 번 했을 경우
+	//iter1.next(); -- 출력 안나옴 , 세 번 했을 경우
+	//for(const a of iter1) log(a);
+
+	//위 code 는 error 발생 Uncaught TypeError: arr is not iterable.
+	//그 뜻은 이 for~of문과 Symbol이 연관이 있다는 것을 뜻한다.
+	for(const a of arr) log(a);
+</script>
+
+	### Set을 통해 알아보기
+<script>
+	log('Set -----------');
+	const set = new Set([1,2,3]);
+	for(const a of set) log(a);
+</script>
+
+	### Map을 통해 알아보기
+<script>
+	log('Map -----------');
+	const map = new Map([['a',1],['b',2],['c',3]]);
+	// var iter2 = map[Symbol.iterator]();
+	// iter2.next();
+	// for(const a of iter2) log(a);  -- (2)["b",2] (2) ["c",3] 출력됨
+	for(const a of map) log(a);
+</script>

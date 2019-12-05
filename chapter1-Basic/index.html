@@ -1,0 +1,52 @@
+<script> const log = console.log;</script>
+
+# 평가 
+- 코드가 계산(Evaluation)되어 값을 만드는 것
+
+# 일급 
+ 1. 값으로 다룰 수 있다.
+ 2. 변수에 담을 수 있다.
+ 3. 함수의 인자로 사용될 수 있다.
+ 4. 함수의 결과로 사용될 수 있다.
+
+
+<script>
+const a = 10;
+const add10 = a => a + 10;
+const r = add10(a);
+log(r);
+</script>
+
+
+# 일급 함수 
+- 함수를 값으로 다룰 수 있다.
+- 조합성과 추상화의 도구
+
+<scipt>
+	const add5 = a=>a+5;
+	log(add5);
+	log(add5(5));
+</scipt>
+
+<script>
+	//apply1 함수는 a+2 함수를 받아서 실행한다.
+	const apply1 = f = > f(1);
+	//const apply1 = f = > (a=>a+2) f(1); 이런 셈이다.
+	const add2 = a => a+2;
+	log(apply1(add2));
+	log(apply1(a=>a-1));
+
+	const times = (f,n) =>{
+		let i = -1;
+		while(++i<n) f(i);
+	};
+	times(log,3);
+	times(a=>a+10,3);
+</script>
+
+
+<script>
+	const addMaker = a => b=> a+b;
+	const add10 = addMaker(10);
+	log(add10);
+</script>
