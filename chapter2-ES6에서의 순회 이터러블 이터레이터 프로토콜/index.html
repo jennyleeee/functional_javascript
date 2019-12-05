@@ -58,3 +58,43 @@
 	// for(const a of iter2) log(a);  -- (2)["b",2] (2) ["c",3] 출력됨
 	for(const a of map) log(a);
 </script>
+
+<script>
+	const iterable = {
+		[Symbol.iterator](){
+			let i = 3;
+			return {
+				next() {
+					//i가 0이 된다면 항상 true를 리턴
+					return i == 0 ? {done : true} : {value : i--, done : false};
+				},
+				[Symbol.iterator](){
+					return this;
+				}
+			}
+		}
+	};
+	let iterator = iterable[Symbol.iterator]();
+	iterator.next();
+	iterator.next();
+	// log(iterator.next());
+	// log(iterator.next());
+	// log(iterator.next());
+	// log(iterator.next());
+	for(const a of iterator) log(a);
+
+	// const arr2 = [1,2,3];
+	//array는 잘 구현된 iterator
+	// let iter2 = arr2[Symbol.iterator]();
+	//진행
+	// iter2.next();
+	// log(iter2[Symbol.iterator]()==iter2);
+	// for(const a of iter2) log(a);
+	// for(const a of arr2) log(a);
+	for(const a of document.querySelectAll('*')) log (a);
+	const all = document.querySelectAll('*');
+	let iter3 = all[Symbol.iterator]();
+	log(iter3.next());
+	log(iter3.next());
+	log(iter3.next());
+</script>
