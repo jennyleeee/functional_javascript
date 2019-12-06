@@ -1,0 +1,87 @@
+<script>const log = console.log;</script>
+
+# 제너레이터 / 이터레이터
+- 제너레이터 : 이터레이터이자 이터러블을 생성하는 함수, 이터레이터를 리턴하는 함수
+
+<script>
+	//함수 이름 앞에 * 를 붙이면 제너레이터
+	function *gen(){
+		//제너레이터는 이러한 밑에 문장을 값으로 만들 수 있고, 순회할 수 있는 값을 만들 수 있기 때문에 자바스크립트에서는 어떠한 상태나 어떠한 값이든 사실상 순회할 수 있게 만든다.
+		yield 1;
+		if(false) yield 2; //2 출력 안됨
+		yield 3;
+		//done 이 true 가 될때 반환하는 값
+		return 100;
+	}
+	let iter = gen();
+	//iterator 은 Symbol.iterator를 가지고 있고, 그 실행결과는 자기 자신이다.
+	log(iter[Symbol.iterator]() == iter);
+	log(iter.next());
+	log(iter.next());
+	log(iter.next());
+
+	//순회할 때 return 값은 없이 순회하게 된다.
+	for(const a of get()) log(a);
+
+		//자바스크립트에서는 어떠한 값이든 iterable이면 순회할 수 있다.
+</script>
+
+# odds
+
+<script>
+
+	function *infinity (i = 0){ //0부터 시작하겠다.
+		while(true) yield i++;
+	}
+	function *limit(l, iter){
+		for(const a of iter){
+			yield a;
+			//같은 값을 만나면 루프 돌지 않는다.
+			if(a==l) return;
+		}
+	}
+
+	function *odds(l){
+		for(const a of limit(l,infinity(1))){
+			if(a % 2) yield a;
+			if(a == l) return;
+		}
+	}
+		// yield 1;
+		// yield 3;
+		// yield 5;
+		// yield 7;
+
+	// for(let i = 0; i<l;i++){
+	// 	if(i%2) yield i;
+	// }
+	// }
+	let iter2 = odds(10);
+	log(iter2.next());
+	log(iter2.next());
+	log(iter2.next());
+	log(iter2.next());
+	log(iter2.next());
+	log(iter2.next());	
+	log(iter2.next());
+
+	for(const a of odds(40)) log (a);
+
+</script>
+
+
+# for of, 전개 연산자, 구조 분해, 나머지 연산자
+<script>
+	log(...odds(10));
+	log([...odds(10), ...odds(20)]);
+
+	const [head, ...tail] = odds(5);
+	log(head);
+	log(tail);
+
+	const[a,b, ...rest] = odds(10);
+	log(a);
+	log(b);
+	log(rest);
+	
+</script>
