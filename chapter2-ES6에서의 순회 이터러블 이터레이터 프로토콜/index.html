@@ -98,3 +98,21 @@
 	log(iter3.next());
 	log(iter3.next());
 </script>
+
+
+
+## 전개 연산자
+
+<script>
+const a = [1,2];
+// log(...a);
+
+//Uncaught TypeError : a is not iterable
+// a[Symbol.iterator] = null;
+
+// log([...a,...[3,4]]);
+log([...a,...arr,...set,...map.values()]);
+
+
+</script>
+
