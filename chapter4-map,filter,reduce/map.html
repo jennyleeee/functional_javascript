@@ -1,0 +1,45 @@
+<script>const log = console.log;</script>log
+
+<script>
+const products = [
+{ name: '반팔티', price : 15000 },
+{ name: '긴팔티', price : 20000 },
+{ name: '핸드폰케이스', price : 15000 },
+{ name: '후드티', price : 30000 },
+{ name: '바지', price : 25000 }
+];
+</script>25000
+
+#map
+<script>
+	//추상화 한다.
+	const map = (f,iter)=>{
+ // const map = (iter) =>{
+	let res = [];
+	for(const a of iter){
+		res.push(f(a));
+	}
+	// log(names);
+	return res;
+	};
+
+	let names = [];
+	for (const p of products){
+		names.push(p.name);
+	}
+	log(names);
+
+
+	//FP에서는 이렇게 map이라는 함수에 보조함수 (p=>p.name) 를 통해서 
+	//이 products 이터러블 안에 있는 값에 어떠한 값을 (일대일로 맵핑되는 어떠한 값을) 내가 수집하겠다고 보조함수를 전달하는 식으로 사용한다.
+	log(map(p => p.name, products));
+
+	let prices = [];
+	for(const p of products){
+		prices.push(p.price);
+	}
+
+
+	log(map(p => p.price, products));
+
+	</script>
